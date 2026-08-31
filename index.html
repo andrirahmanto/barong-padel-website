@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pembayaran QRIS — Barong Padel Club</title>
+<meta name="description" content="QRIS resmi Barong Padel Club. Scan langsung dari layar atau unduh gambarnya untuk membayar lewat aplikasi bank dan e-wallet.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pembayaran QRIS — Barong Padel Club">
+<meta property="og:description" content="Scan atau unduh QRIS resmi Barong Padel Club.">
+<meta property="og:image" content="qris-barong-padel-club.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preload" as="image" href="qris-barong-padel-club.jpg" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --black:#000000;
+  --paper:#EAEAE5;
+  --card:#FFFFFF;
+  --green:#35A93F;
+  --green-deep:#1E7F35;
+  --green-press:#14591F;
+  --muted:#5E5E58;
+  --rule:rgba(0,0,0,.14);
+  --rule-light:rgba(255,255,255,.16);
+
+  --overlap:84px;          /* seberapa jauh kartu QRIS menindih area kertas */
+  --gutter:clamp(20px,5.5vw,30px);
+  --measure:620px;         /* lebar kolom baca pada layout bertumpuk */
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--black);
+  font-family:"Karla",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  overflow-wrap:break-word;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+
+.wrap{
+  width:100%;max-width:var(--measure);margin-inline:auto;
+  padding-inline:max(var(--gutter),env(safe-area-inset-left)) max(var(--gutter),env(safe-area-inset-right));
+}
+
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;}
+.masthead :focus-visible,.stage :focus-visible,footer :focus-visible{outline-color:var(--green);}
+
+/* ---------- Masthead ---------- */
+.masthead{background:var(--black);color:#fff;padding:16px 0;}
+.masthead .wrap{display:flex;align-items:center;gap:13px;}
+.masthead img{width:46px;height:46px;flex:none;}
+.masthead .name{
+  font-family:"Archivo",sans-serif;font-weight:800;font-size:16px;
+  letter-spacing:-.015em;line-height:1.15;
+}
+.masthead .place{font-size:13px;color:rgba(255,255,255,.6);line-height:1.35;}
+
+/* ---------- Stage (pita hitam + kartu QRIS) ---------- */
+.stage{
+  background:var(--black);color:#fff;
+  padding:clamp(34px,8vw,48px) 0 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,.05) 1.4px, transparent 1.5px),
+    radial-gradient(rgba(255,255,255,.05) 1.4px, transparent 1.5px);
+  background-size:26px 26px;
+  background-position:0 0, 13px 13px;
+}
+.stage h1{
+  font-family:"Archivo",sans-serif;font-weight:800;
+  font-size:clamp(31px,7.6vw,46px);line-height:1.04;letter-spacing:-.03em;
+  margin:0 0 12px;
+}
+.stage h1 .rule{display:block;width:52px;height:5px;background:var(--green);margin-bottom:20px;}
+.stage p{margin:0;color:rgba(255,255,255,.72);max-width:38ch;}
+
+.qris{
+  margin:clamp(26px,6vw,36px) auto calc(var(--overlap) * -1);
+  /* 60vh menjaga kartu tetap muat di layar pendek / HP mode landscape */
+  width:min(100%, 352px, 60vh);
+  background:var(--card);
+  padding:14px;
+  box-shadow:0 26px 50px rgba(0,0,0,.42);
+}
+.qris img{width:100%;height:auto;}
+.qris figcaption{
+  font-size:12.5px;line-height:1.45;color:var(--muted);text-align:center;
+  padding:11px 4px 3px;border-top:1px solid var(--rule);margin-top:12px;
+}
+
+/* ---------- Sheet ---------- */
+.sheet{padding-top:calc(var(--overlap) + 30px);padding-bottom:56px;}
+
+.actions{display:flex;flex-direction:column;gap:11px;margin-bottom:14px;}
+.btn{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  min-height:54px;text-decoration:none;
+  font-family:"Karla",sans-serif;font-weight:700;font-size:17px;
+  padding:14px 20px;border:2px solid transparent;
+  transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn:active{transform:translateY(1px);}
+.btn-main{background:var(--green-deep);color:#fff;}
+.btn-alt{border-color:var(--black);color:var(--black);background:transparent;}
+@media (hover:hover){
+  .btn-main:hover{background:var(--green-press);}
+  .btn-alt:hover{background:var(--black);color:var(--paper);}
+}
+.hint{font-size:14px;line-height:1.55;color:var(--muted);margin:0 0 clamp(32px,7vw,44px);}
+
+h2{
+  font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(19px,2.2vw,21px);
+  letter-spacing:-.02em;margin:0 0 16px;
+}
+
+.detail{margin:0 0 clamp(32px,7vw,44px);border-top:2px solid var(--black);}
+.detail div{
+  display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+  padding:12px 0;border-bottom:1px solid var(--rule);
+}
+.detail dt{font-size:14.5px;color:var(--muted);flex:none;}
+.detail dd{margin:0;text-align:right;font-weight:700;font-size:15px;}
+
+.steps{margin:0 0 clamp(32px,7vw,44px);padding:0;list-style:none;counter-reset:s;}
+.steps li{counter-increment:s;position:relative;padding:0 0 18px 46px;}
+.steps li:last-child{padding-bottom:0;}
+.steps li::before{
+  content:counter(s);position:absolute;left:0;top:1px;
+  width:29px;height:29px;border-radius:50%;
+  background:var(--black);color:#fff;
+  font-family:"Archivo",sans-serif;font-weight:800;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.steps strong{font-weight:700;}
+
+.notice{
+  background:var(--card);border-left:5px solid var(--green);
+  padding:18px 20px;font-size:15.5px;line-height:1.58;
+}
+.notice p{margin:0;}
+.notice p + p{margin-top:9px;}
+.notice a{font-weight:700;color:var(--green-deep);}
+
+/* ---------- Footer ---------- */
+footer{
+  background:var(--black);color:rgba(255,255,255,.62);
+  padding:34px 0 calc(40px + env(safe-area-inset-bottom));font-size:13.5px;line-height:1.6;
+}
+footer .top{display:flex;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--rule-light);margin-bottom:18px;}
+footer img{width:38px;height:38px;flex:none;}
+footer .club{font-family:"Archivo",sans-serif;font-weight:800;font-size:14px;color:#fff;letter-spacing:-.015em;}
+footer p{margin:0 0 7px;max-width:60ch;}
+footer p:last-child{margin-bottom:0;}
+footer a{color:rgba(255,255,255,.85);}
+
+/* ---------- HP sangat kecil ---------- */
+@media (max-width:359px){
+  .detail div{flex-direction:column;align-items:stretch;gap:2px;}
+  .detail dd{text-align:left;}
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width:640px){
+  :root{--overlap:110px;}
+  .qris{width:min(100%, 380px, 60vh);}
+  .actions{flex-direction:row;}
+  .btn{flex:1;}
+}
+
+/* ---------- Desktop: dua kolom ---------- */
+@media (min-width:980px){
+  :root{--overlap:0px;}
+
+  .shell{
+    max-width:1440px;margin-inline:auto;
+    display:grid;min-height:100vh;
+    grid-template-columns:minmax(380px,42%) minmax(0,1fr);
+    grid-template-rows:auto 1fr auto;
+    grid-template-areas:
+      "brand info"
+      "hero  info"
+      "foot  foot";
+  }
+  .masthead{grid-area:brand;padding:28px 0 4px;}
+  .stage{grid-area:hero;padding:28px 0 52px;}
+  .sheet{grid-area:info;padding:44px 0 72px;}
+  footer{grid-area:foot;}
+
+  .wrap{max-width:none;}
+  .masthead .wrap,.stage .wrap{
+    max-width:500px;margin-inline:auto;
+    padding-inline:clamp(28px,3vw,52px);
+  }
+  .sheet .wrap{
+    max-width:640px;margin-inline:auto;
+    padding-inline:clamp(36px,4vw,68px);
+  }
+  footer{border-top:1px solid var(--rule-light);}
+  footer .wrap{
+    max-width:1440px;padding-inline:clamp(28px,3vw,52px);
+    display:flex;align-items:flex-start;justify-content:space-between;gap:clamp(32px,5vw,72px);
+  }
+  footer .top{flex:none;border-bottom:0;padding-bottom:0;margin-bottom:0;}
+  footer .legal{max-width:58ch;}
+
+  /* kartu QRIS ikut menempel saat kolom kanan digulir */
+  .stage .wrap{position:sticky;top:28px;}
+  .qris{margin:30px 0 0;width:min(100%, 400px, 50vh);}
+  .stage p{max-width:32ch;}
+
+}
+
+@media (min-width:1200px){
+  .stage h1{font-size:48px;}
+  body{font-size:17.5px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *{transition:none !important;animation:none !important;}
+}
+
+/* ---------- Cetak ---------- */
+@media print{
+  :root{--overlap:0px;}
+  body{background:#fff;font-size:11pt;}
+  .shell{display:block;max-width:none;}
+  .masthead,.stage,footer{background:#fff !important;color:#000 !important;background-image:none !important;}
+  .masthead .place,.stage p,footer{color:#333 !important;}
+  .masthead img,footer img{filter:invert(1);}
+  .stage h1 .rule{background:#000;}
+  .stage,.sheet{padding:0;}
+  .wrap{max-width:none;padding-inline:0;}
+  .qris{width:62mm;margin:12px 0 20px;padding:0;box-shadow:none;border:1px solid #000;break-inside:avoid;}
+  .actions,.hint{display:none;}
+  .notice{border-left-color:#000;}
+  footer .wrap{display:block;}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#555;}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="masthead">
+  <div class="wrap">
+    <img src="logo-barong.jpg" alt="Logo Barong Padel Club" width="46" height="46">
+    <div>
+      <div class="name">Barong Padel Club</div>
+      <div class="place">Pembayaran resmi</div>
+    </div>
+  </div>
+</header>
+
+<section class="stage">
+  <div class="wrap">
+    <h1><span class="rule"></span>Bayar dengan QRIS</h1>
+    <p>Scan langsung dari layar ini, atau unduh gambarnya lalu buka dari galeri.</p>
+
+    <figure class="qris">
+      <img src="qris-barong-padel-club.jpg"
+           alt="QRIS Barong Padel Club, NMID ID1026574300392, terminal A01"
+           width="1135" height="1600" fetchpriority="high" decoding="async">
+      <figcaption>Berlaku di semua aplikasi bank dan e-wallet berlogo QRIS</figcaption>
+    </figure>
+  </div>
+</section>
+
+<main class="sheet">
+  <div class="wrap">
+
+    <div class="actions">
+      <a class="btn btn-main"
+         href="qris-barong-padel-club.jpg"
+         download="QRIS-Barong-Padel-Club.jpg">Unduh gambar QRIS</a>
+      <a class="btn btn-alt"
+         href="qris-barong-padel-club.jpg"
+         target="_blank" rel="noopener">Buka ukuran penuh</a>
+    </div>
+    <p class="hint">Gambar tersimpan di galeri atau folder unduhan perangkat kamu. Di iPhone, buka ukuran penuh lalu tekan lama gambarnya dan pilih <strong>Simpan ke Foto</strong>.</p>
+
+    <h2>Data merchant</h2>
+    <dl class="detail">
+      <div><dt>Nama penerima</dt><dd>BARONG PADEL CLUB</dd></div>
+      <div><dt>NMID</dt><dd>ID1026574300392</dd></div>
+      <div><dt>Terminal</dt><dd>A01</dd></div>
+      <div><dt>Jenis QRIS</dt><dd>Statis, nominal diisi sendiri</dd></div>
+    </dl>
+
+    <h2>Cara membayar</h2>
+    <ol class="steps">
+      <li>Buka aplikasi bank atau e-wallet kamu, pilih menu <strong>Scan QRIS</strong>.</li>
+      <li>Arahkan ke QRIS di atas, atau pilih gambar yang sudah diunduh dari galeri.</li>
+      <li>Pastikan nama penerima yang muncul adalah <strong>BARONG PADEL CLUB</strong>. Kalau namanya berbeda, batalkan.</li>
+      <li>Masukkan nominal sesuai booking kamu, lalu selesaikan pembayaran.</li>
+      <li>Kirim bukti pembayaran ke admin supaya slot kamu langsung dikunci.</li>
+    </ol>
+
+    <div class="notice">
+      <p><strong>Sudah bayar?</strong> Kirim screenshot bukti transfer ke admin lewat
+        <a href="https://wa.me/62XXXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a>
+        beserta nama dan jam booking kamu.</p>
+      <p>Booking dianggap sah setelah admin konfirmasi.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <img src="logo-barong.jpg" alt="" width="38" height="38">
+      <div class="club">Barong Padel Club</div>
+    </div>
+    <div class="legal">
+      <p>QRIS ini diterbitkan mengikuti standar QR Code pembayaran nasional Bank Indonesia. Daftar aplikasi penyelenggara dapat dilihat di <a href="https://www.aspi-qris.id" target="_blank" rel="noopener">aspi-qris.id</a>.</p>
+      <p>&copy; 2026 Barong Padel Club</p>
+    </div>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
